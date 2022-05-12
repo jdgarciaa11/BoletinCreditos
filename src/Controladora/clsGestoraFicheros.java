@@ -3,7 +3,6 @@ package Controladora;
 import Modelo.clsCliente;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class clsGestoraFicheros {
@@ -37,11 +36,18 @@ public class clsGestoraFicheros {
 
     public static void leerBinario(){
         boolean salir = false;
-        ArrayList<clsCliente> lista;
+        clsCliente cliente;
         try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(RUTA_BINARIA_COMPLETO))){
-            lista = (ArrayList<clsCliente>) objectInputStream.readObject();
-            for (clsCliente c: lista) {
-                System.out.println(c);
+            cliente = (clsCliente) objectInputStream.readObject();
+            while (!salir){
+                System.out.println(cliente);
+                try {
+                    cliente = (clsCliente) objectInputStream.readObject();
+                } catch (Exception e){
+                    System.out.println("fin de fichero");
+                    salir = true;
+                }
+
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
