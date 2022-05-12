@@ -1,6 +1,8 @@
 package Modelo;
 
-public class clsCliente {
+import java.io.Serializable;
+
+public class clsCliente implements ICliente, Serializable {
     private int numCliente;
     private String nombre;
     private String apellido1;
@@ -107,6 +109,20 @@ public class clsCliente {
 
     public void setCodigoPostal(int codigoPostal) {
         this.codigoPostal = codigoPostal;
+    }
+
+    @Override
+    public boolean calculoVip(){
+        boolean esVip = false;
+        if(this.saldo < 0 && this.ingresosMedios>3000){
+            esVip = true;
+        }
+        return esVip;
+    }
+
+    @Override
+    public boolean calculoRobinson() {
+        return false;
     }
 
     @Override
